@@ -19,4 +19,17 @@ def make_question():
 	result=str(a)+t+str(b)
 	return result
 	
-print(make_question())
+while True:
+	y=make_question()
+	u=input('그만하고 싶으면 stop을 타이핑 해주세요.'+y+'=')
+	if u =='stop':break
+	elif int(u) == eval(y):
+		print('Correct!')
+	else:
+		print('NO')
+		
+	
+	
+	
+	
+
