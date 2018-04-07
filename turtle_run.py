@@ -43,7 +43,7 @@ def turn_left ():
 def play ():
 	global score
 	global playing
-	t.fd(16)
+	t.fd(16.7)
 	ang1=Devil.towards(t.pos())
 	Devil.setheading(ang1)
 	ang2=evil.towards(t.pos())
@@ -53,14 +53,23 @@ def play ():
 
 	
 	
-	if t.distance(prey)<10:
-		score+=5
+	if t.distance(prey)<15:
+		score+= 5
 		prey.goto(r.randint(-229,229),r.randint(-229,229))
 		t.write(score)
-	if t.distance(Devil)>5 and t.distance(evil)>5 :
+		if score == 10:
+			Devil.fd(14)
+			evil.fd(13.5)
+	
+		if score == 20:
+			Devil.fd(16.5)
+			evil.fd(16.5)
+	
+	if t.distance(Devil)>10 or t.distance(evil)>10 :
 		t.ontimer(play,50)
 	else:
 		message('Game Over','score='+str(score))
+		score=0
 
 def message(m1,m2):
 	t.up()
@@ -77,8 +86,8 @@ def start():
 	global playing
 	if playing == False:
 		plaing=True
-	play()
-	t.clear()
+		play()
+		t.clear()
 	
 
 
