@@ -43,33 +43,35 @@ def turn_left ():
 def play ():
 	global score
 	global playing
-	t.fd(16.7)
+	t.fd(18)
 	ang1=Devil.towards(t.pos())
 	Devil.setheading(ang1)
 	ang2=evil.towards(t.pos())
 	evil.setheading(ang2)
-	Devil.fd(13)
-	evil.fd(12.5)
+	if score < 10:
+		Devil.fd(13)
+		evil.fd(12.5)
+	
+	if score >= 10 and score <20:
+		Devil.fd(14)
+		evil.fd(13.5)
 
+	if score >= 20:
+		Devil.fd(16.5)
+		evil.fd(16.5)
 	
-	
-	if t.distance(prey)<15:
+	if t.distance(prey)<15:#먹이 먹었을때 
 		score+= 5
 		prey.goto(r.randint(-229,229),r.randint(-229,229))
 		t.write(score)
-		if score == 10:
-			Devil.fd(14)
-			evil.fd(13.5)
 	
-		if score == 20:
-			Devil.fd(16.5)
-			evil.fd(16.5)
-	
-	if t.distance(Devil)>10 or t.distance(evil)>10 :
-		t.ontimer(play,50)
-	else:
+	if t.distance(Devil)<10 or t.distance(evil)<10 :#죽었을때
 		message('Game Over','score='+str(score))
 		score=0
+		playing = False
+	
+	if playing:
+		t.ontimer(play,100)
 
 def message(m1,m2):
 	t.up()
@@ -85,7 +87,7 @@ message('TURTLE RUN!!','space를 누르면 시작합니다')
 def start():
 	global playing
 	if playing == False:
-		plaing=True
+		playing=True
 		play()
 		t.clear()
 	
